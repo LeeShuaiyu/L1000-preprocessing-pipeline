@@ -53,13 +53,13 @@ key = f'{plate_core}:{well}'
 
 > 说明：19 811 个化合物 ID 中约一半映射到同一 canonical SMILES——盐酸盐、批次前缀等已折叠。
 
-| 步骤 | 保留数量 | 占 720 216 列 (%) | 丢弃的数量 | 丢弃原因 |
+| 步骤 | 保留数量 | 占 720216 列 (%) | 丢弃的数量 | 丢弃原因 |
 |:----|---------:|-----------------:|-----------:|:---------|
-| **原始列**<br>(全部列) | 720 216 | 100 % | — | — |
-| **1) 匹配到 pert_id**<br>`cid → pert_id` 成功 | 699 937 | 97.2 % | 20 279 | • 空白孔/溶剂对照（无对应 `pert_id`）<br>• 元数据缺失（`instinfo` 中不含该 `plate:well`）<br>• QC 完全不通过（若事先按 QC 过滤则更多） |
-| **2) 筛 `pert_type == 'trt_cp'`**<br>仅保留小分子化合物 | 465 354 | 64.6 % | 234 583 | • `pert_id` 属于基因过表达 (`trt_oe`)、shRNA (`trt_sh`)、蛋白/肽配体 (`trt_lig`) 等<br>• 这些干预没有小分子 SMILES，不符合本研究对象 |
-| **3) 要求有 `canonical_smiles`**<br>确保能映射到 SMILES | 465 354 | 64.6 % | 0 | • 因为前一步已按 `trt_cp` 且 `compoundinfo` 中小分子几乎全配有 SMILES，故此处无额外丢弃 |
-| **4) 折叠为唯一 SMILES**<br>去除同一 SMILES 多条 `pert_id` | 10 670 | — | 454 684 pert_id<br>（≈ 97.7 %） | • 多个 `pert_id`（盐酸盐、批号、立体异构体）指向同一 canonical SMILES<br>• 折叠后只剩 10 670 条独立分子骨架 |
+| **原始列**<br>(全部列) | 720216 | 100 % | — | — |
+| **1) 匹配到 pert_id**<br>`cid → pert_id` 成功 | 699937 | 97.2 % | 20279 | • 空白孔/溶剂对照（无对应 `pert_id`）<br>• 元数据缺失（`instinfo` 中不含该 `plate:well`）<br>• QC 完全不通过（若事先按 QC 过滤则更多） |
+| **2) 筛 `pert_type == 'trt_cp'`**<br>仅保留小分子化合物 | 465354 | 64.6 % | 234583 | • `pert_id` 属于基因过表达 (`trt_oe`)、shRNA (`trt_sh`)、蛋白/肽配体 (`trt_lig`) 等<br>• 这些干预没有小分子 SMILES，不符合本研究对象 |
+| **3) 要求有 `canonical_smiles`**<br>确保能映射到 SMILES | 465354 | 64.6 % | 0 | • 因为前一步已按 `trt_cp` 且 `compoundinfo` 中小分子几乎全配有 SMILES，故此处无额外丢弃 |
+| **4) 折叠为唯一 SMILES**<br>去除同一 SMILES 多条 `pert_id` | 10670 | — | 454684 pert_id<br>（≈ 97.7 %） | • 多个 `pert_id`（盐酸盐、批号、立体异构体）指向同一 canonical SMILES<br>• 折叠后只剩 10 670 条独立分子骨架 |
 ---
 
 ## 4   重复次数分布（trt_cp + SMILES）
